@@ -91,10 +91,19 @@ function initRowData(users) {
 	}
 }
 
-async function handleEventChoosePage(){
-	$("#pagination .page-item").each(function(index, page){
-		$(page).click(async function(event){
+async function handleEventSort(){
+	$("#tbl_Header .tbl_HeaderName").each(function(index, header){
+		$(header).click(async function(event){
 			//event.preventDefault()
+			const urlParams = new URLSearchParams(window.location.search);
+			const column = ($(this).text());
+			if(urlParams.has("sort")){
+				urlParams.set("sort",column);
+				console.log(column);
+			}else{
+				window.location.href+= `${urlParams.has('page') ? '&' : '?'}sort=${column}`;
+				console.log(window.location.href);
+			}
 			
 		})
 	})
@@ -123,5 +132,5 @@ $(document).ready(async function() {
 	initRowData(userList);
 	initPagination(currentPage,totalPage);
 	
-	await handleEventChoosePage();
+	await handleEventSort();
 })

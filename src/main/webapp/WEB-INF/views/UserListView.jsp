@@ -51,7 +51,7 @@
             <table class="table table-dark table-striped table-hover">
                 <thead id="tbl_Header">
                   <tr>
-                    <th class="tbl_HeaderName disable">ID</th>
+                    <th class="tbl_HeaderName disabled">ID</th>
                     <th class="tbl_HeaderName">Name</th>
                     <th class="tbl_HeaderName">Email</th>
                     <th class="tbl_HeaderName">Status</th>
@@ -71,8 +71,6 @@
             </ul>
               
         </div>
-	
-	
 	
 		<!-- jQuery library -->
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
