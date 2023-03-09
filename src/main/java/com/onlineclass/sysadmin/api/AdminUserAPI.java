@@ -38,7 +38,9 @@ public class AdminUserAPI {
 
 	@GetMapping("/api/users")
 	public APIRespone_UserList<List<AdminUser_CommonCode>> getUsers(
-			@RequestParam(name = "page", required = false, defaultValue = "1") String strPage){
+			@RequestParam(name = "page", required = false, defaultValue = "1") String strPage,
+			@RequestParam(name = "col", required = false, defaultValue = "ID") String column,
+			@RequestParam(name = "sort", required = false) String sort){
 		
 		try {
 			Properties properties = new Properties();
@@ -49,12 +51,18 @@ public class AdminUserAPI {
 			int currentPage = Integer.parseInt(strPage);
 			int totalPage = (int) Math.ceil((float)totalUsers/(float)itemPerPage);
 			int skip = (itemPerPage * currentPage) - itemPerPage;
-			
+			System.out.println("Before col: " + column);
+			System.out.println("Before sort: " + sort);
+			sort = sort == null ? "DESC" : (sort.equals("asc") ? "desc" : "asc");
+			System.out.println("After col: " + column);
+			System.out.println("After sort: " + sort);
 			Map<String, Object> params = new HashMap<>();
 			params.put("limit", itemPerPage);
 			params.put("skip", skip);
+			params.put("sort", sort);
+			params.put("column", column);
 			
-			return new APIRespone_UserList<List<AdminUser_CommonCode>>(totalPage, currentPage, userService.getAllUserInRage(params));
+			return new APIRespone_UserList<List<AdminUser_CommonCode>>(totalPage, currentPage, sort,userService.getAllUserInRage(params));
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;
@@ -88,7 +96,7 @@ public class AdminUserAPI {
 			params.put("limit", itemPerPage);
 			params.put("skip", skip);
 			
-			return new APIRespone_UserList<List<AdminUser_CommonCode>>(itemPerPage, 5, userService.getAllUserInRage(params));
+			return new APIRespone_UserList<List<AdminUser_CommonCode>>(itemPerPage, 5,"ASC", userService.getAllUserInRage(params));
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;

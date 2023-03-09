@@ -4,12 +4,14 @@ package com.onlineclass.sysadmin.entity;
 public class APIRespone_UserList<T> {
 	 private int totalPage;
 	 private int currentPage;
+	 private String sortType;
 	 private T userList;
 	 
-	public APIRespone_UserList(int totalPage, int currentPage, T userList) {
+	public APIRespone_UserList(int totalPage, int currentPage, String sortType, T userList) {
 		this.totalPage = totalPage;
 		this.currentPage = currentPage;
 		this.userList = userList;
+		this.sortType = sortType;
 	}
 
 	public int getTotalPage() {
@@ -34,6 +36,14 @@ public class APIRespone_UserList<T> {
 
 	public void setUserList(T userList) {
 		this.userList = userList;
+	}
+
+	public String getSortType() {
+		return sortType;
+	}
+
+	public void setSortBy(String sortType) {
+		this.sortType = sortType;
 	}
 	
 	

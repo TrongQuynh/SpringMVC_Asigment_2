@@ -48,7 +48,7 @@
 		
 		<div class="container">
             <h2>User List</h2>
-            <table class="table table-dark table-striped table-hover">
+            <table id="tbl_users" data-sort="asc" class="table table-dark table-striped table-hover">
                 <thead id="tbl_Header">
                   <tr>
                     <th class="tbl_HeaderName disabled">ID</th>

@@ -91,19 +91,26 @@ function initRowData(users) {
 	}
 }
 
+function initCurrentSortType(sortType){
+	$("#tbl_users").attr("data-sort",sortType);
+}
+
 async function handleEventSort(){
 	$("#tbl_Header .tbl_HeaderName").each(function(index, header){
 		$(header).click(async function(event){
 			//event.preventDefault()
 			const urlParams = new URLSearchParams(window.location.search);
-			const column = ($(this).text());
-			if(urlParams.has("sort")){
-				urlParams.set("sort",column);
-				console.log(column);
-			}else{
-				window.location.href+= `${urlParams.has('page') ? '&' : '?'}sort=${column}`;
-				console.log(window.location.href);
-			}
+			const column = ($(this).text()).toLowerCase();
+			const sortType = $("#tbl_users").attr("data-sort");
+			let new_url = (window.location.href);
+			new_url = new_url.includes("?") ? new_url.slice(0,new_url.indexOf("?")) : new_url;
+			console.log(new_url);
+			
+			urlParams.set("col",column);
+			urlParams.set("sort",sortType);
+			
+			console.log(`${new_url}?${urlParams.toString()}`);
+			window.location.href = `${new_url}?${urlParams.toString()}`;
 			
 		})
 	})
@@ -123,14 +130,15 @@ async function handleEventReloadAllData(url){
 $(document).ready(async function() {
 	
 	const urlParams = new URLSearchParams(window.location.search);
-	let url_page = urlParams.get("page");
 	
-	let url_api_users = `${URL_API_ROOT}/users${ url_page ? '?page='+url_page : ""}` ;
+	console.log(urlParams.toString());
+	let url_api_users = `${URL_API_ROOT}/users?${urlParams.toString()}` ;
 	
-	const {totalPage, currentPage, userList} = await getUsers(url_api_users);
+	const {totalPage, currentPage, userList,sortType} = await getUsers(url_api_users);
 	console.log({totalPage, currentPage, userList})
 	initRowData(userList);
 	initPagination(currentPage,totalPage);
+	initCurrentSortType(sortType);
 	
 	await handleEventSort();
 })

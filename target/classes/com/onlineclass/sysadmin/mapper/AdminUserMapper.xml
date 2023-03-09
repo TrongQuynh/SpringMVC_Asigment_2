@@ -6,8 +6,8 @@
 	
 	<resultMap type="adminUser" id="result">
 		<id property="ID" column="ID" />
-		<result property="name" column="name" />
-		<result property="email" column="email" />
+		<result property="name" column="Name" />
+		<result property="email" column="Email" />
 		<result property="password" column="Password" />
 		<result property="agentID" column="AgentID" />
 		<result property="statusCD" column="StatusCD" />
@@ -19,8 +19,8 @@
 	
 	<resultMap type="adminUserCommonCode" id="result_adminUserCommonCode">
 		<id property="ID" column="ID" />
-		<result property="name" column="name" />
-		<result property="email" column="email" />
+		<result property="name" column="Name" />
+		<result property="email" column="Email" />
 		<result property="password" column="Password" />
 		<result property="agentID" column="AgentID" />
 		<result property="agentID" column="AgentID" />
@@ -38,10 +38,14 @@
 	
 	<select id="getAllUsersInRange" resultType="adminUserCommonCode" resultMap="result_adminUserCommonCode">
 		SELECT adminuser.ID, adminuser.Name, adminuser.Email, adminuser.StatusCD, commoncode.Name as Status ,adminuser.Notes,adminuser.CreatedAt,adminuser.UpdatedAt
-		FROM adminuser
+		FROM (
+			SELECT *
+			FROM adminuser
+			WHERE DeletedAt IS NULL
+		) adminuser
 		INNER JOIN commoncode
 		ON adminuser.StatusCD = commoncode.value
-		ORDER BY adminuser.CreatedAt DESC
+		ORDER BY ${column} ${sort}
 		LIMIT #{limit}
 		OFFSET #{skip};
 	</select>
@@ -65,7 +69,7 @@
 	</update>  -->
 	
 	<select id="getTotalUser" resultType="int">
-        SELECT COUNT(*) FROM adminuser
+        SELECT COUNT(*) FROM adminuser WHERE DeletedAt IS NULL
     </select>
 	
 	<!-- <delete id="deleteUser" parameterType="int">

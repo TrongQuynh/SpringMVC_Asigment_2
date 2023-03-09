@@ -10,7 +10,8 @@ public class AdminUserController {
 	
 	@RequestMapping(value = "/adminuser")
 	public String userListPage(@RequestParam(value = "page", required = false) String page,
-							@RequestParam(value = "col", required = false) String col,Model model) {
+							@RequestParam(value = "col", required = false) String col,
+							@RequestParam(value = "sort", required = false) String sort,Model model) {
 		return "UserListView";
 	}
 	
