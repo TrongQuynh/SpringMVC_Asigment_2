@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.onlineclass.sysadmin.entity.AdminUser"
+			alias="adminUser" />
+		<typeAlias type="com.onlineclass.sysadmin.entity.CommonCode"
+			alias="commonCode" />
+		<typeAlias type="com.onlineclass.sysadmin.entity.AdminUser_CommonCode"
+			alias="adminUserCommonCode" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/online_class" />
+				<property name="username" value="root" />
+				<property name="password" value="van phong54664" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/onlineclass/sysadmin/mapper/AdminUserMapper.xml" />
+		<mapper resource="com/onlineclass/sysadmin/mapper/CommonCodeMapper.xml" />
+	</mappers>
+</configuration>

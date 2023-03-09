@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineclass.sysadmin.dao.AdminUserDAOImpl">
+	
+	<resultMap type="adminUser" id="result">
+		<id property="ID" column="ID" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="password" column="Password" />
+		<result property="agentID" column="AgentID" />
+		<result property="statusCD" column="StatusCD" />
+		<result property="notes" column="Notes" />
+		<result property="createdAt" column="CreatedAt" />
+		<result property="updatedAt" column="UpdatedAt" />
+		<result property="deletedAt" column="DeletedAt" />
+	</resultMap>
+	
+	<resultMap type="adminUserCommonCode" id="result_adminUserCommonCode">
+		<id property="ID" column="ID" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="password" column="Password" />
+		<result property="agentID" column="AgentID" />
+		<result property="agentID" column="AgentID" />
+		<result property="statusCD" column="StatusCD" />
+		<result property="status" column="Status" />
+		<result property="notes" column="Notes" />
+		<result property="createdAt" column="CreatedAt" />
+		<result property="updatedAt" column="UpdatedAt" />
+		<result property="deletedAt" column="DeletedAt" />
+	</resultMap>
+	
+	<select id="getAllUsers" resultType="adminUser" resultMap="result">
+		SELECT * FROM adminuser
+	</select>
+	
+	<select id="getAllUsersInRange" resultType="adminUserCommonCode" resultMap="result_adminUserCommonCode">
+		SELECT adminuser.ID, adminuser.Name, adminuser.Email, adminuser.StatusCD, commoncode.Name as Status ,adminuser.Notes,adminuser.CreatedAt,adminuser.UpdatedAt
+		FROM adminuser
+		INNER JOIN commoncode
+		ON adminuser.StatusCD = commoncode.value
+		ORDER BY adminuser.CreatedAt DESC
+		LIMIT #{limit}
+		OFFSET #{skip};
+	</select>
+	
+	<select id="getAllUsersWithComminCode" resultType="adminUserCommonCode" resultMap="result_adminUserCommonCode">
+		SELECT adminuser.ID, adminuser.Name, adminuser.Email, adminuser.StatusCD, commoncode.Name as Status ,adminuser.Notes,adminuser.CreatedAt,adminuser.UpdatedAt
+		FROM adminuser
+		INNER JOIN commoncode
+		ON adminuser.StatusCD = commoncode.value
+		ORDER BY adminuser.CreatedAt DESC;
+	</select>
+	
+	<!--<insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO employee(fullname, email, gender, hobbies, country, address)
+		VALUES(#{fullname}, #{email}, #{gender}, #{hobbies}, #{country}, #{address})
+	</insert>
+	
+	  <update id="updateEmployee" parameterType="employee">
+		UPDATE adminuser SET DeletedAt = #{DeletedAt}
+		WHERE ID = #{ID} 
+	</update>  -->
+	
+	<select id="getTotalUser" resultType="int">
+        SELECT COUNT(*) FROM adminuser
+    </select>
+	
+	<!-- <delete id="deleteUser" parameterType="int">
+		DELETE FROM employee WHERE id = #{ID}
+	</delete> -->
+
+</mapper>

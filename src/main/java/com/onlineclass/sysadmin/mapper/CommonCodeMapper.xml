@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onlineclass.sysadmin.dao.CommonCodeDAOImpl">
+	
+	<resultMap type="commonCode" id="result">
+		<id property="ID" column="ID" />
+		<result property="parentID" column="ParentID" />
+		<result property="columnFullName" column="ColumnFullName" />
+		<result property="codeName" column="Name" />
+		<result property="codeFullName" column="FullName" />
+		
+		<result property="codeValue" column="Value" />
+		<result property="codeTitle" column="Title" />
+		<result property="cssClass" column="CssClass" />
+		<result property="priority" column="Priority" />
+		<result property="codeNotes" column="Notes" />
+		<result property="createdAt" column="CreatedAt" />
+		<result property="updatedAt" column="UpdatedAt" />
+		<result property="deletedAt" column="DeletedAt" />
+	</resultMap>
+	
+	<select id="getAllCommonCode" resultType="commonCode" resultMap="result">
+		SELECT * FROM commoncode
+	</select>
+
+</mapper>
