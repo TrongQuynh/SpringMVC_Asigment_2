@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>New User</title>
+    <title>Update User</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
@@ -21,9 +21,13 @@
 			color: var(--danger);
 			display: none;
 		}
-        #btn_Submit{
-            width: 100%;
+        button.btn{
+            width: 32%;
+            margin: 0 1px;
         }
+        .disabled{
+			pointer-events: none;
+		}
     </style>
 </head>
 
@@ -44,8 +48,10 @@
       </nav>
 
     <div class="container">
-        <h2>New User</h2>
-
+        <h2>Update User</h2>
+        
+		<%@include file="ModalConfirm.html"%>
+		
         <form id="form_data" method="POST">
             <div class="form-group">
                 <label for="name" class="font-weight-bold">Username <span class="text-danger">*</span> :</label>
@@ -54,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="email" class="font-weight-bold">Email <span class="text-danger">*</span> : </label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required disabled>
                 <div class="error_message mt-2 alert alert-danger" id="error_email" role="alert">Please fill out this field</div>
             </div>
             <div class="form-group">
@@ -83,9 +89,24 @@
                 <label for="note"><b>Notes</b></label>
                 <input type="text" class="form-control" name="notes" id="note" placeholder="Enter notes" />
             </div>
-
+            
+            <div class="form-group row">
+            	<div class="col">
+            		<label for="createdAt"><b>Created At</b></label>
+                	<input type="datetime" value="2022-09-05 00:00:00.0" class="form-control" name="createdAt" id="createdAt" disabled/>
+            	</div>
+            	
+            	<div class="col">
+            		<label for="updatedAt"><b>Updated At</b></label>
+                	<input type="datetime" value="2022-09-05 00:00:00.0" class="form-control" name="updatedAt" id="updatedAt" disabled />
+            	</div>
+            </div>
+            
+             
             <div class="form-group text-center">
-                <button type="submit" id="btn_Submit" class="btn btn-primary">Submit</button>
+            	<button type="button" id="btn_Cancel" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="btn_Update" class="btn btn-warning">Update</button>
+                <button type="button" id="btn_Delete" class="btn btn-danger">Delete</button>
             </div>
             
         </form>
@@ -102,12 +123,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Send user data -->
-	<script type="text/javascript" src="<c:url value="/resources/js/sendNewUser.js"/>"></script>
 	
 	<!-- Fetch Status Selection -->
 	<script type="text/javascript" src="<c:url value="/resources/js/fetchStatusData.js"/>"></script>
+	
+	<!-- Update user data -->
+	<script type="text/javascript" src="<c:url value="/resources/js/sendUpdateUser.js"/>"></script>
 </body>
 
 </html>

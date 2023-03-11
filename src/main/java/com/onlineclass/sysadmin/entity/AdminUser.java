@@ -45,6 +45,8 @@ public class AdminUser {
 	
 	@Column(name = "DeletedAt")
 	private Timestamp deletedAt;
+	
+	private String confirm_password;
 
 	public int getID() {
 		return ID;
@@ -125,13 +127,25 @@ public class AdminUser {
 	public void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
 	}
+	
+	
+
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
+	}
 
 	@Override
 	public String toString() {
 		return "AdminUser [ID=" + ID + ", name=" + name + ", email=" + email + ", password=" + password + ", agentID="
 				+ agentID + ", statusCD=" + statusCD + ", notes=" + notes + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", deletedAt=" + deletedAt + "]";
+				+ updatedAt + ", deletedAt=" + deletedAt + ", confirm_password=" + confirm_password + "]";
 	}
+
+	
 	
 	
 	

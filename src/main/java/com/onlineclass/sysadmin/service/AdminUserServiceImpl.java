@@ -25,14 +25,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public AdminUser getUserByID(Integer ID) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDAO.getUserByID(ID);
 	}
 
 	@Override
 	public void addNewUser(AdminUser adminUser) {
-		// TODO Auto-generated method stub
-		
+		userDAO.addNewUser(adminUser);
 	}
 
 	@Override
@@ -42,8 +40,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 	}
 
 	@Override
-	public void deleteUser(Integer ID) {
-		userDAO.deleteUser(ID);
+	public void deleteUser(AdminUser adminUser) {
+		userDAO.deleteUser(adminUser);
 	}
 
 	@Override
@@ -59,6 +57,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public List<AdminUser_CommonCode> getAllUserInRage(Map<String, Object> params) {
 		return userDAO.getAllUserInRage(params);
+	}
+
+	@Override
+	public AdminUser getuserByEmail(String Email) {
+		return userDAO.getuserByEmail(Email);
 	}
 
 }

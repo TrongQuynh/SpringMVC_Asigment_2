@@ -33,15 +33,16 @@ function formatDateTime(datetime){
 }
 
 function createRowTableHTML(user) {
+	console.log(user.statusColor);
 	return `
 		<tr>
-	        <td class="align-middle">${user.id}</td>
-	        <td class="align-middle">${user.name}</td>
-	        <td class="userEmail align-middle">${user.email}</td>
-	        <td class="align-middle">${user.status}</td>
-	        <td class="userNotes align-middle">${user.notes}</td>
-	        <td class="align-middle">${formatDateTime(user.createdAt)}</td>
-	        <td class="align-middle">${formatDateTime(user.updatedAt)}</td>
+	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.id}</td>
+	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.name}</td>
+	        <td class="userEmail align-middle ${ user.statusCode == 4 ? 'userInactive' : ''} ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.email}</td>
+	        <td class="align-middle ${user.statusColor} ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.status}</td>
+	        <td class="userNotes align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.notes}</td>
+	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${formatDateTime(user.createdAt)}</td>
+	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${formatDateTime(user.updatedAt)}</td>
 	     </tr>
 	`;
 }
@@ -85,10 +86,14 @@ async function initPagination(currentPage,totalPage){
 
 
 function initRowData(users) {
-	$("#tbl_body").empty();
+	
+	let result = "";
 	for (let user of users) {
-		$("#tbl_body").append(createRowTableHTML(user));
+		//$("#tbl_body").append(createRowTableHTML(user));
+		result += createRowTableHTML(user);
 	}
+	$("#tbl_body").empty();
+	$("#tbl_body").append(result);
 }
 
 function initCurrentSortType(sortType){
@@ -116,15 +121,6 @@ async function handleEventSort(){
 	})
 }
 
-/**
- * Reload All data when choose other page
- */
-async function handleEventReloadAllData(url){
-	const {totalPage, currentPage, userList} = await getUsers(url);
-	console.log({totalPage, currentPage, userList})
-	initRowData(userList);
-	initPagination(currentPage,totalPage);
-} 
 
 // Main
 $(document).ready(async function() {

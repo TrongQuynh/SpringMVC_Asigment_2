@@ -35,13 +35,25 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 
 	@Override
 	public AdminUser getUserByID(Integer ID) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+			AdminUser user = session.selectOne("findUserByID", ID);
+			session.commit();
+			session.close();
+			return user;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		
 	}
 
 	@Override
 	public void addNewUser(AdminUser adminUser) {
-		// TODO Auto-generated method stub
+		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+		session.insert("insertUser", adminUser);
+		session.commit();
+		session.close();
 		
 	}
 
@@ -52,9 +64,9 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 	}
 
 	@Override
-	public void deleteUser(Integer ID) {
+	public void deleteUser(AdminUser adminUser) {
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		session.delete("deleteUser", ID);
+		session.delete("deleteUser", adminUser);
 		session.commit();
 		session.close();
 		
@@ -77,6 +89,19 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 		session.commit();
 		session.close();
 		return employeesList;
+	}
+
+	@Override
+	public AdminUser getuserByEmail(String email) {
+		try {
+			SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+			AdminUser user = session.selectOne("findUserByEmail", email);
+			session.commit();
+			session.close();
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

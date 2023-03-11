@@ -8,6 +8,7 @@ public class AdminUser_CommonCode {
 	private String email;
 	private int statusCD;
 	private String status;
+	private String statusColor;
 	private String notes;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
@@ -65,6 +66,19 @@ public class AdminUser_CommonCode {
 	}
 	public void setDeletedAt(Timestamp deletedAt) {
 		this.deletedAt = deletedAt;
+	}
+	
+	public int getStatusCD() {
+		return statusCD;
+	}
+	public void setStatusCD(int statusCD) {
+		this.statusCD = statusCD;
+	}
+	public String getStatusColor() {
+		return statusColor;
+	}
+	public void setStatusColor(String statusColor) {
+		this.statusColor = statusColor;
 	}
 	@Override
 	public String toString() {

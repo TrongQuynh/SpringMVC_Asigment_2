@@ -15,6 +15,11 @@ public class AdminUserController {
 		return "UserListView";
 	}
 	
+	@RequestMapping(value = "/adminuser/edit")
+	public String updateUserPage(@RequestParam(value = "id", required = true) Integer id) {
+		return "UpdateUserView";
+	}
+	
 	@RequestMapping(value = "/adminuser/new")
 	public String newUserPage(Model model) {
 		return "NewUserView";

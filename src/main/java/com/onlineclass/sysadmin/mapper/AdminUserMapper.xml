@@ -25,6 +25,7 @@
 		<result property="agentID" column="AgentID" />
 		<result property="agentID" column="AgentID" />
 		<result property="statusCD" column="StatusCD" />
+		<result property="statusColor" column="StatusColor" />
 		<result property="status" column="Status" />
 		<result property="notes" column="Notes" />
 		<result property="createdAt" column="CreatedAt" />
@@ -37,17 +38,18 @@
 	</select>
 	
 	<select id="getAllUsersInRange" resultType="adminUserCommonCode" resultMap="result_adminUserCommonCode">
-		SELECT adminuser.ID, adminuser.Name, adminuser.Email, adminuser.StatusCD, commoncode.Name as Status ,adminuser.Notes,adminuser.CreatedAt,adminuser.UpdatedAt
+		SELECT adminuser.ID, adminuser.Name, adminuser.Email, adminuser.StatusCD, commoncode.Name as Status,commoncode.CssClass as StatusColor ,adminuser.Notes,adminuser.CreatedAt,adminuser.UpdatedAt
 		FROM (
 			SELECT *
 			FROM adminuser
 			WHERE DeletedAt IS NULL
+			ORDER BY ID DESC
+			LIMIT #{limit}
+			OFFSET #{skip}
 		) adminuser
 		INNER JOIN commoncode
 		ON adminuser.StatusCD = commoncode.value
-		ORDER BY ${column} ${sort}
-		LIMIT #{limit}
-		OFFSET #{skip};
+		ORDER BY ${column} ${sort};
 	</select>
 	
 	<select id="getAllUsersWithComminCode" resultType="adminUserCommonCode" resultMap="result_adminUserCommonCode">
@@ -58,15 +60,23 @@
 		ORDER BY adminuser.CreatedAt DESC;
 	</select>
 	
-	<!--<insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO employee(fullname, email, gender, hobbies, country, address)
-		VALUES(#{fullname}, #{email}, #{gender}, #{hobbies}, #{country}, #{address})
+	<select id="findUserByEmail" parameterType="java.lang.String" resultType="adminUser" resultMap="result">
+		SELECT * FROM adminuser WHERE Email = #{email}
+	</select>
+	
+	<select id="findUserByID" parameterType="int" resultType="adminUser" resultMap="result">
+		SELECT * FROM adminuser WHERE ID = #{ID}
+	</select>  
+	
+	<insert id="insertUser" parameterType="adminUser" keyProperty="ID" useGeneratedKeys="true">
+		INSERT INTO adminuser(Name, Email, Password, AgentID, StatusCD, Notes)
+		VALUES(#{name}, #{email}, #{password}, #{agentID}, #{statusCD}, #{notes})
 	</insert>
 	
-	  <update id="updateEmployee" parameterType="employee">
-		UPDATE adminuser SET DeletedAt = #{DeletedAt}
+	  <update id="deleteUser" parameterType="adminUser">
+		UPDATE adminuser SET DeletedAt = #{deletedAt}
 		WHERE ID = #{ID} 
-	</update>  -->
+	</update>  
 	
 	<select id="getTotalUser" resultType="int">
         SELECT COUNT(*) FROM adminuser WHERE DeletedAt IS NULL

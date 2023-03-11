@@ -15,6 +15,15 @@
 			/*Table Style*/
 			#tbl_Header{
 				background: #28344b99;
+				
+			}
+			
+			.tbl_HeaderName{
+				cursor: pointer;
+			}
+			
+			.tbl_HeaderName:hover{
+				color: var(--purple);
 			}
 			
 			#tbl_body tr{
@@ -36,15 +45,39 @@
 				max-width: 25rem;
 				overflow-wrap: break-word;
 			}
+			
+			.userInactive {
+				pointer-events: none;
+				text-decoration: line-through;
+				color: #b6b6b6;
+			}
 		</style>
 		<style type="text/css">
 			.disabled{
 				pointer-events: none;
 			}
-		
+			
+			#img_loading{
+				max-width: 10rem;
+				max-height: 10rem;
+			}
 		</style>
 	</head>
 	<body>
+	
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	        <!-- Brand -->
+	        <a class="navbar-brand" href="./">Logo</a>
+	        <!-- Links -->
+	        <ul class="navbar-nav">
+	          <li class="nav-item">
+	            <a class="nav-link" href="adminuser">User List</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="adminuser/new">New User</a>
+	          </li>
+	        </ul>
+      	</nav>
 		
 		<div class="container">
             <h2>User List</h2>
@@ -61,8 +94,11 @@
                   </tr>
                 </thead>
                 <tbody id="tbl_body">
-                  
-                    
+                  <tr>
+                  	<td class="text-center" colspan="7">
+                  		<img alt="" src="https://thumbs.gfycat.com/ImpressiveGenuineHen-size_restricted.gif" id="img_loading">
+                  	</td>
+                  </tr>
                 </tbody>
               </table>
  
