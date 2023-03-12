@@ -59,7 +59,10 @@ public class AdminUserDAOImpl implements AdminUserDAO {
 
 	@Override
 	public void updateUser(AdminUser adminUser) {
-		// TODO Auto-generated method stub
+		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+		session.update("updateUser", adminUser);
+		session.commit();
+		session.close();
 		
 	}
 

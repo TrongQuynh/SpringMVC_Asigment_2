@@ -8,21 +8,12 @@
 <title>Home Page</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link href='<c:url value="/resources/css/style.css"/>' rel="stylesheet"  type="text/css"/>
+<link href='<c:url value="/resources/css/Navbar.css"/>' rel="stylesheet"  type="text/css"/>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="">Logo</a>
-        <!-- Links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="adminuser">User List</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="adminuser/new">New User</a>
-          </li>
-        </ul>
-      </nav>
+	
+	<!-- Navber -->
+	<%@include file="Navbar.html"%>
 
 
 	<h2 class="txt_red">Home Page</h2>
@@ -33,9 +24,18 @@
 	<!-- Popper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<!-- Jquery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Variable Config -->
+	<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
+	
+	<!-- Navbar Reirect Page -->
+	<script type="text/javascript" src="<c:url value="/resources/js/navbarRedirectPage.js"/>"></script>
+	
+	<!-- Fetch laguage -->
+	<script type="text/javascript" src="<c:url value="/resources/js/fetchLanguage.js"/>"></script>
 	
 </body>
 </html>

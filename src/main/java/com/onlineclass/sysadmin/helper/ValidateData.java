@@ -40,7 +40,7 @@ public class ValidateData {
 		return status >=1 && status <=5;
 	}
 	
-	public static ErrorMessage validateData(AdminUser adminUser, AdminUserService userService) {
+	public static ErrorMessage validateNewUserData(AdminUser adminUser, AdminUserService userService) {
 		try {
 			
 			String email = adminUser.getEmail();
@@ -63,6 +63,32 @@ public class ValidateData {
 			
 			if(!ValidateData.isEmailValidateRFC5322(email)) {
 				return new ErrorMessage(200, 4,"email_error_format");
+			}
+			
+			if(!ValidateData.isConfirmPasswordIsSame(pwd, cfm_pwd)) {
+				return new ErrorMessage(200, 5,"confirm_password");
+			}
+			
+			if(!ValidateData.isStatusSelected(status)) {
+				return new ErrorMessage(200, 6,"error_select_status");
+			}
+			return new ErrorMessage(200, 0,"Success"); 
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+	}
+	
+	public static ErrorMessage validateUpdateUserData(AdminUser adminUser) {
+		try {
+			
+			String name = adminUser.getName();
+			String pwd = adminUser.getPassword();
+			String cfm_pwd = adminUser.getConfirm_password();
+			int status = adminUser.getStatusCD();
+			
+			if(!ValidateData.isUserNameHasFilled(name)) {
+				return new ErrorMessage(200, 1,"username_not_fill");
 			}
 			
 			if(!ValidateData.isConfirmPasswordIsSame(pwd, cfm_pwd)) {

@@ -35,8 +35,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public void updateUser(AdminUser adminUser) {
-		// TODO Auto-generated method stub
-		
+		userDAO.updateUser(adminUser);
 	}
 
 	@Override

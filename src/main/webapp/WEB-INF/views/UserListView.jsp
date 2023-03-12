@@ -34,6 +34,12 @@
 				background: var(--secondary);
 			}
 			
+			.userName{
+				width: 18rem;
+				max-width: 18rem;
+				overflow-wrap: break-word;
+			}
+			
 			.userEmail{
 				width: 15rem;
 				max-width: 15rem;
@@ -41,8 +47,8 @@
 			}
 			
 			.userNotes {
-				width: 25rem;
-				max-width: 25rem;
+				width: 18rem;
+				max-width: 18rem;
 				overflow-wrap: break-word;
 			}
 			
@@ -50,6 +56,10 @@
 				pointer-events: none;
 				text-decoration: line-through;
 				color: #b6b6b6;
+			}
+			
+			.btn_Edit{
+				padding: 0.5rem 0.8rem;
 			}
 		</style>
 		<style type="text/css">
@@ -62,40 +72,60 @@
 				max-height: 10rem;
 			}
 		</style>
+		<!-- Navbar -->
+	    <style type="text/css">
+	    	#img_laguage{
+	    		width: 2rem;
+	    		height: 2rem;
+	    	}
+	    	#btn_Language{
+	    		padding-top: 1.2px;
+	    		padding-bottom: 1.2px;
+	    	}
+	    	
+	    </style>
 	</head>
 	<body>
 	
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	        <!-- Brand -->
-	        <a class="navbar-brand" href="./">Logo</a>
+	        <a id="nav_logo" class="navbar-brand" href="">Logo</a>
 	        <!-- Links -->
 	        <ul class="navbar-nav">
 	          <li class="nav-item">
-	            <a class="nav-link" href="adminuser">User List</a>
+	            <a class="nav-link" id="nav_userList" href="adminuser">User List</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="adminuser/new">New User</a>
+	            <a class="nav-link" id="nav_newUser" href="adminuser/new">New User</a>
 	          </li>
 	        </ul>
+	        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+	        	<a id="btn_Language" data-language="vi" class="btn btn-primary mr-2">
+	        		<img alt="" src="../resources/image/viIcons.png" id="img_laguage">
+	        		<span>VI</span>
+	        	</a>
+	        	<a id="btn_LogOut" class="btn btn-danger">Log Out</a>
+        	</div>
       	</nav>
 		
 		<div class="container">
-            <h2>User List</h2>
+            <h2 id="titlePage">User List</h2>
             <table id="tbl_users" data-sort="asc" class="table table-dark table-striped table-hover">
                 <thead id="tbl_Header">
                   <tr>
                     <th class="tbl_HeaderName disabled">ID</th>
-                    <th class="tbl_HeaderName">Name</th>
-                    <th class="tbl_HeaderName">Email</th>
-                    <th class="tbl_HeaderName">Status</th>
-                    <th class="tbl_HeaderName">Notes</th>
-                    <th class="tbl_HeaderName">CreatedAt</th>
-                    <th class="tbl_HeaderName">UpdatedAt</th>
+                    <th data-col="Name" class="tbl_HeaderName header_name">Name</th>
+                    <th data-col="Email" class="tbl_HeaderName header_email">Email</th>
+                    <th data-col="Status" class="tbl_HeaderName header_status">Status</th>
+                    <th data-col="Notes" class="tbl_HeaderName header_notes">Notes</th>
+                    <th data-col="CreatedAt" class="tbl_HeaderName header_createdAt">CreatedAt</th>
+                    <th data-col="UpdatedAt" class="tbl_HeaderName header_updatedAt">UpdatedAt</th>
+                    <th class="tbl_HeaderName"></th>
                   </tr>
                 </thead>
                 <tbody id="tbl_body">
                   <tr>
-                  	<td class="text-center" colspan="7">
+                  	<td class="text-center" colspan="8">
                   		<img alt="" src="https://thumbs.gfycat.com/ImpressiveGenuineHen-size_restricted.gif" id="img_loading">
                   	</td>
                   </tr>
@@ -113,12 +143,21 @@
 		<!-- Popper JS -->
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<!-- Jquery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 		
+		<!-- Variable Config -->
+		<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
+		
 		<!-- Fetch user data -->
 		<script type="text/javascript" src="<c:url value="/resources/js/fetchUserData.js"/>"></script>
-
+	
+		<!-- Fetch laguage -->
+		<script type="text/javascript" src="<c:url value="/resources/js/fetchLanguage.js"/>"></script>
+		
+		<!-- Navbar Reirect Page -->
+		<script type="text/javascript" src="<c:url value="/resources/js/navbarRedirectPage.js"/>"></script>
+		
 	</body>
 </html>

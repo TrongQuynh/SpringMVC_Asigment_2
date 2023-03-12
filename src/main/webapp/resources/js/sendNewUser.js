@@ -1,5 +1,5 @@
 
-const URL_API_ROOT = "http://localhost:8080/Assignment_2/api";
+//const URL_API_ROOT = "http://localhost:8080/Assignment_2/api";
 
 async function fetchAddNewUser(userInfo){
 	const url = `${URL_API_ROOT}/user`;
@@ -29,6 +29,8 @@ async function handleEventSubmit(){
 	$("#btn_Submit").click(async function(event){
 		event.preventDefault();
 		let url = `${URL_API_ROOT}/user`;
+		const urlParams = new URLSearchParams(window.location.search);
+		let language = urlParams.get("lan") == null ? "en" : urlParams.get("lan");
 		
 		$("#form_data").attr("action",url);
 		
@@ -46,25 +48,13 @@ async function handleEventSubmit(){
 		if(errorCode == 0 && message == "Success" && statusCode == 200){
 			window.location.href = ".././adminuser";
 		}else{
-			let error_info = await fetchGetErrorMessage({language:"vi",errorCode:5,msg:"username_not_fill"})
+			let error_info = await fetchGetErrorMessage({language,errorCode,msg:message})
 			$(".error_message").each(function(index,el){
 				$(el).css({"display":"none"});
 			})
 			let err_lists = ["","#error_name","#error_email","#error_email","#error_email","#error_pwd","#error_status"];
 			$(err_lists[errorCode]).text(error_info.message);
 			$(err_lists[errorCode]).css({"display":"block"});
-			/*switch(errorCode){
-				case 2:
-					$("#error_name").text(error_info.message);
-					$("#error_name").css({"display":"block"});
-				break;
-				case 2:
-					$("#error_name").text(error_info.message);
-					$("#error_name").css({"display":"block"});
-				break;
-			}
-			*/
-			
 		}
 	})
 }
@@ -76,5 +66,4 @@ async function handleEventSubmit(){
 // Main
 $(document).ready(async function() {
 	await handleEventSubmit();
-	//console.log(await fetchGetErrorMessage({language:"vi",errorCode:5,msg:"username_not_fill"}));
 })

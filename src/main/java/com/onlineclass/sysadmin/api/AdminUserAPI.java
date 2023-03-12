@@ -1,6 +1,8 @@
 package com.onlineclass.sysadmin.api;
 
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,7 @@ import com.onlineclass.sysadmin.entity.AdminUser;
 import com.onlineclass.sysadmin.entity.AdminUser_CommonCode;
 import com.onlineclass.sysadmin.entity.CommonCode;
 import com.onlineclass.sysadmin.entity.ErrorMessage;
+import com.onlineclass.sysadmin.helper.Helper;
 import com.onlineclass.sysadmin.helper.ValidateData;
 import com.onlineclass.sysadmin.service.AdminUserService;
 import com.onlineclass.sysadmin.service.CommonCodeService;
@@ -75,16 +79,36 @@ public class AdminUserAPI {
 	@PostMapping("/api/user")
 	public ErrorMessage addNewUser(@RequestBody AdminUser adminUser) {
 		try {
-			ErrorMessage resultValidate = ValidateData.validateData(adminUser, userService);
+			ErrorMessage resultValidate = ValidateData.validateNewUserData(adminUser, userService);
 			if(resultValidate != null && resultValidate.getErrorCode() == 0) {
-				//userService.addNewUser(adminUser);
+				if(!adminUser.getPassword().equals("")) {
+					adminUser.setPassword(Helper.encryptPassword(adminUser.getPassword()));
+				}
+				userService.addNewUser(adminUser);
 				return new ErrorMessage(200, "Success");
 			}
 			return resultValidate;
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
-			return new ErrorMessage(200, "Success");
+			return new ErrorMessage(200, -1,"Error when add new user");
+		}
+	}
+	
+	@PatchMapping("/api/user/{id}")
+	public ErrorMessage updateUserData(@PathVariable Integer id, @RequestBody AdminUser adminUser) {
+		try {
+			System.out.println("Call API update user");
+			System.out.println(adminUser.toString());
+			ErrorMessage resultValidate = ValidateData.validateUpdateUserData(adminUser);
+			if(resultValidate != null && resultValidate.getErrorCode() == 0) {
+				userService.updateUser(adminUser);
+				return new ErrorMessage(200, "Success");
+			}
+			return resultValidate;
+		} catch (Exception e) {
+			 System.out.println(e.toString());
+			return new ErrorMessage(200, -1,"Error when Update user");
 		}
 	}
 	
@@ -132,10 +156,10 @@ public class AdminUserAPI {
 			
 			if(language.equals("vi") || language.equals("en")) {
 				Properties en_properties = new Properties();
-				en_properties.load(new FileInputStream("D:\\Code\\Java\\Sping\\Assingment\\Assignment_2\\src\\main\\java\\com\\onlineclass\\sysadmin\\config\\en_ErrorMessage.properties"));
+				en_properties.load(new FileInputStream("D:\\Code\\Java\\Sping\\Assingment\\Assignment_2\\src\\main\\java\\com\\onlineclass\\sysadmin\\properties\\en_ErrorMessage.properties"));
 				
 				Properties vi_properties = new Properties();
-				vi_properties.load(new FileInputStream("D:\\Code\\Java\\Sping\\Assingment\\Assignment_2\\src\\main\\java\\com\\onlineclass\\sysadmin\\config\\vi_ErrorMessage.properties"));
+				vi_properties.load(new FileInputStream("D:\\Code\\Java\\Sping\\Assingment\\Assignment_2\\src\\main\\java\\com\\onlineclass\\sysadmin\\properties\\vi_ErrorMessage.properties"));
 				
 				return new ErrorMessage(200, errorCode,language.equals("en") ? en_properties.getProperty(err_msg) : vi_properties.getProperty(err_msg));
 				/*
@@ -159,13 +183,18 @@ public class AdminUserAPI {
 		}
 	}
 	
-
-	
 	// Can Delete
 	
 	@GetMapping("/api/test")
 	public String test(){
-		return "";
+		try {
+			Properties en_properties = new Properties();
+			en_properties.load(new InputStreamReader(new FileInputStream("D:\\Code\\Java\\Sping\\Assingment\\Assignment_2\\src\\main\\java\\com\\onlineclass\\sysadmin\\properties\\en_vi_Navbar_Language.properties"), "UTF-8"));
+			return en_properties.getProperty("data_vi");
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return e.toString();
+		}
 	}
 	
 	

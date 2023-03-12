@@ -73,10 +73,15 @@
 		VALUES(#{name}, #{email}, #{password}, #{agentID}, #{statusCD}, #{notes})
 	</insert>
 	
-	  <update id="deleteUser" parameterType="adminUser">
+	 <update id="deleteUser" parameterType="adminUser">
 		UPDATE adminuser SET DeletedAt = #{deletedAt}
 		WHERE ID = #{ID} 
-	</update>  
+	</update>
+	
+	<update id="updateUser" parameterType="adminUser">
+		UPDATE adminuser SET Name = #{name},Password = #{password}, AgentID = #{agentID}, StatusCD = #{statusCD}, Notes = #{notes} ,DeletedAt = #{deletedAt}
+		WHERE ID = #{ID} 
+	</update>    
 	
 	<select id="getTotalUser" resultType="int">
         SELECT COUNT(*) FROM adminuser WHERE DeletedAt IS NULL

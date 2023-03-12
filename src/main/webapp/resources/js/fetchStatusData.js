@@ -1,6 +1,6 @@
 
 async function getStatus(){
-	const respone = await fetch("http://localhost:8080/Assignment_2/api/status");
+	const respone = await fetch(`${URL_API_ROOT}/status`);
 	return await respone.json();
 }
 

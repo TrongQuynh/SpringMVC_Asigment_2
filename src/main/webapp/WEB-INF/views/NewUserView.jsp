@@ -10,6 +10,8 @@
     <title>New User</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+    
     <style>
         .container{
             max-width: 40%;
@@ -25,54 +27,74 @@
             width: 100%;
         }
     </style>
+    <!-- Navbar -->
+    <style type="text/css">
+    	#img_laguage{
+    		width: 2rem;
+    		height: 2rem;
+    	}
+    	#btn_Language{
+    		padding-top: 1.2px;
+    		padding-bottom: 1.2px;
+    	}
+    	
+    </style>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" href=".././">TQ</a>
+        <a id="nav_logo" class="navbar-brand" href=".././">TQ</a>
         <!-- Links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href=".././adminuser">User List</a>
+            <a class="nav-link" id="nav_userList" href=".././adminuser">User List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=".././adminuser/new">New User</a>
+            <a class="nav-link active" id="nav_newUser" href=".././adminuser/new">New User</a>
           </li>
         </ul>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        	
+        	<a id="btn_Language" data-language="vi" class="btn btn-primary mr-2">
+        		<img alt="" src="../resources/image/viIcons.png" id="img_laguage">
+        		<span>VI</span>
+        	</a>
+        	<a id="btn_LogOut" class="btn btn-danger">Log Out</a>
+        </div>
       </nav>
 
     <div class="container">
-        <h2>New User</h2>
+        <h2 id="titlePage">New User</h2>
 
         <form id="form_data" method="POST">
             <div class="form-group">
-                <label for="name" class="font-weight-bold">Username <span class="text-danger">*</span> :</label>
+                <label for="name" class="font-weight-bold" id="lbl_name">User Name</label> <span class="text-danger">*</span> <b>:</b>
                 <input type="text" class="form-control" id="name" placeholder="Enter username" name="name" required>
                 <div class="error_message mt-2 alert alert-danger" id="error_name" role="alert">Please fill out this field</div>
             </div>
             <div class="form-group">
-                <label for="email" class="font-weight-bold">Email <span class="text-danger">*</span> : </label>
+                <label for="email" class="font-weight-bold" id="lbl_email">Email</label> <span class="text-danger">*</span> <b>:</b>
                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
                 <div class="error_message mt-2 alert alert-danger" id="error_email" role="alert">Please fill out this field</div>
             </div>
             <div class="form-group">
-                <label for="password" class="font-weight-bold">Password: </label>
+                <label for="password" id="lbl_pwd" class="font-weight-bold">Password: </label>
                 <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
                 
             </div>
             <div class="form-group">
-                <label for="password" class="font-weight-bold">Confirm Password: </label>
+                <label for="password" id="lbl_cdm_pwd" class="font-weight-bold">Confirm Password: </label>
                 <input type="password" class="form-control" id="confirm_password" placeholder="Enter confirm password" name="confirm_password">
                 <div class="error_message mt-2 alert alert-danger" id="error_pwd" role="alert">Please fill out this field</div>
             </div>
             <div class="form-group">
-                <label for="agentID" class="font-weight-bold">Agent ID:</label>
+                <label for="agentID" id="lbl_agentID" class="font-weight-bold">Agent ID:</label>
                 <input type="text" class="form-control" id="agentID" placeholder="Enter Agent ID" name="agentID">
             </div>
             <div class="form-group">
-                <label for="statusCD" class="font-weight-bold">Device Type <span class="text-danger">*</span> :</label>
+                <label for="statusCD" class="font-weight-bold"><span id="lbl_status">Status</span> <span class="text-danger">*</span> :</label>
                 <select class="custom-select" id="statusCD" name="statusCD" required>
                     <option value="">Select</option>
                     
@@ -80,12 +102,12 @@
                 <div class="error_message mt-2 alert alert-danger" id="error_status" role="alert">Please fill out this field</div>
             </div>
             <div class="form-group">
-                <label for="note"><b>Notes</b></label>
+                <label id="lbl_notes" class="font-weight-bold" for="note"><b>Notes</b></label>
                 <input type="text" class="form-control" name="notes" id="note" placeholder="Enter notes" />
             </div>
 
-            <div class="form-group text-center">
-                <button type="submit" id="btn_Submit" class="btn btn-primary">Submit</button>
+            <div class="form-group text-center" id="btn_Group">
+                <button type="submit" id="btn_Submit" class="btn btn-primary font-weight-bold">Submit</button>
             </div>
             
         </form>
@@ -103,11 +125,20 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Variable Config -->
+	<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
+    
     <!-- Send user data -->
 	<script type="text/javascript" src="<c:url value="/resources/js/sendNewUser.js"/>"></script>
 	
 	<!-- Fetch Status Selection -->
 	<script type="text/javascript" src="<c:url value="/resources/js/fetchStatusData.js"/>"></script>
+	
+	<!-- Fetch laguage -->
+	<script type="text/javascript" src="<c:url value="/resources/js/fetchLanguage.js"/>"></script>
+	
+	<!-- Navbar Reirect Page -->
+	<script type="text/javascript" src="<c:url value="/resources/js/navbarRedirectPage.js"/>"></script>
 </body>
 
 </html>
