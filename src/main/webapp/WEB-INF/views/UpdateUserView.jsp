@@ -45,27 +45,8 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand -->
-        <a id="nav_logo" class="navbar-brand" href=".././">TQ</a>
-        <!-- Links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" id="nav_userList" href=".././adminuser">User List</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="nav_newUser" href=".././adminuser/new">New User</a>
-          </li>
-        </ul>
-        
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        	<a id="btn_Language" data-language="vi" class="btn btn-primary mr-2">
-        		<img alt="" src="../resources/image/viIcons.png" id="img_laguage">
-        		<span>VI</span>
-        	</a>
-        	<a id="btn_LogOut" class="btn btn-danger">Log Out</a>
-        </div>
-      </nav>
+    <!-- Navber -->
+	<%@include file="Navbar.jsp"%>
 
     <div class="container mb-5 mt-3">
         <h2 id="titlePage">Update User</h2>
@@ -143,9 +124,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 	<!-- Variable Config -->
 	<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
 	
+	<!-- Authentication -->
+	<script type="text/javascript" src="<c:url value="/resources/js/Authetication.js"/>"></script>
 	
 	<!-- Fetch Status Selection -->
 	<script type="text/javascript" src="<c:url value="/resources/js/fetchStatusData.js"/>"></script>

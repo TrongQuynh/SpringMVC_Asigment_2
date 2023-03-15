@@ -12,4 +12,10 @@ public class HomeController {
 
 		return "HomeView";
 	}
+	
+	@RequestMapping(value = "/login")
+	public String loginPage(Model model) {
+
+		return "LoginView";
+	}
 }

@@ -22,12 +22,21 @@ async function fetch_language_Page(url){
 
 // setNavbar language
 async function setNavBarlanguage(language){
+	/** 
+	 *  Import from Authentication.js
+	*/
 	let data = await fetchNavBarLabel(language);
 	console.log(data);
 	//$("#nav_userList").text(data.userList);
 	//$("#nav_newUser").text(data.newUser);
 	for(let key of Object.keys(data)){
 		$(`#${key}`).text(data[key]);
+	}
+	if(! await isAuthentication()){
+		// If NOT Login
+		$(`#btn_LogOut`).text(data["btn_LogIn"]);
+		$(`#btn_LogOut`).removeClass();
+		$(`#btn_LogOut`).attr("class","btn btn-outline-success")
 	}
 }
 

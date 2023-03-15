@@ -87,26 +87,8 @@
 	</head>
 	<body>
 	
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	        <!-- Brand -->
-	        <a id="nav_logo" class="navbar-brand" href="">Logo</a>
-	        <!-- Links -->
-	        <ul class="navbar-nav">
-	          <li class="nav-item">
-	            <a class="nav-link" id="nav_userList" href="adminuser">User List</a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link" id="nav_newUser" href="adminuser/new">New User</a>
-	          </li>
-	        </ul>
-	        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-	        	<a id="btn_Language" data-language="vi" class="btn btn-primary mr-2">
-	        		<img alt="" src="../resources/image/viIcons.png" id="img_laguage">
-	        		<span>VI</span>
-	        	</a>
-	        	<a id="btn_LogOut" class="btn btn-danger">Log Out</a>
-        	</div>
-      	</nav>
+		<!-- Navber -->
+		<%@include file="Navbar.jsp"%>
 		
 		<div class="container">
             <h2 id="titlePage">User List</h2>
@@ -131,6 +113,8 @@
                   </tr>
                 </tbody>
               </table>
+             
+             <div id="pageInfo" class="text-center mt-3 mb-3 font-weight-bold">Page <span id="c_page">0</span> / <span id="t_page">0</span> Pages</div>
  
             <ul class="pagination justify-content-center" id="pagination">
                <!-- Insert Data here --> 
@@ -149,6 +133,9 @@
 		
 		<!-- Variable Config -->
 		<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
+		
+		<!-- Authentication -->
+		<script type="text/javascript" src="<c:url value="/resources/js/Authetication.js"/>"></script>
 		
 		<!-- Fetch user data -->
 		<script type="text/javascript" src="<c:url value="/resources/js/fetchUserData.js"/>"></script>

@@ -32,7 +32,9 @@ function formatDateTime(datetime){
      
 }
 
-function createRowTableHTML(user,language) {
+async function createRowTableHTML(user,language) {
+	const ROLE = await fetchUserRole();
+	console.log(ROLE);
 	return `
 		<tr>
 	        <td class="align-middle text-align ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.id}</td>
@@ -42,7 +44,7 @@ function createRowTableHTML(user,language) {
 	        <td class="userNotes align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${user.notes}</td>
 	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${formatDateTime(user.createdAt)}</td>
 	        <td class="align-middle ${ user.statusCode == 4 ? 'userInactive' : ''}">${formatDateTime(user.updatedAt)}</td>
-	        <td class="align-middle text-align"><a href="adminuser/edit?id=${user.id}${language}" class="badge badge-warning btn_Edit">Edit</a></td>
+	        <td class="align-middle text-align ${ROLE == "ROLE_ADMIN" ? "" : "d-none"}"><a href="adminuser/edit?id=${user.id}${language}" class="badge badge-warning btn_Edit">Edit</a></td>
 	     </tr>
 	`;
 }
@@ -83,18 +85,20 @@ function createPagination(currentPage,totalPage){
 }
 
 async function initPagination(currentPage,totalPage){
+	$("#pageInfo #c_page").text(currentPage);
+	$("#pageInfo #t_page").text(totalPage);
 	$("#pagination").empty();
 	$("#pagination").append(createPagination(currentPage,totalPage));
 }
 
 
-function initRowData(users) {
+async function initRowData(users) {
 	const urlParams = new URLSearchParams(window.location.search);
 	let language = urlParams.get("lan") == null ? "" : `&lan=${urlParams.get("lan")}`;
 	let result = "";
 	for (let user of users) {
 		//$("#tbl_body").append(createRowTableHTML(user));
-		result += createRowTableHTML(user,language);
+		result += await createRowTableHTML(user,language);
 	}
 	$("#tbl_body").empty();
 	$("#tbl_body").append(result);
@@ -136,7 +140,7 @@ $(document).ready(async function() {
 	
 	const {totalPage, currentPage, userList,sortType} = await getUsers(url_api_users);
 	console.log({totalPage, currentPage, userList})
-	initRowData(userList);
+	await initRowData(userList);
 	initPagination(currentPage,totalPage);
 	initCurrentSortType(sortType);
 	

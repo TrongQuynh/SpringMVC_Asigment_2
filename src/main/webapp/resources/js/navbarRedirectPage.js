@@ -47,11 +47,34 @@ function setURLNavbar(){
 	}
 }
 
+function handleNavbarActive(){
+	let currentPage = window.location.pathname;
+	let navID = currentPage.includes("new") ? "#nav_newUser" : currentPage.endsWith("adminuser") ? "#nav_userList" : "";
+	// Home Page
+	$(`${navID}`).addClass("active");
+}
+
 // Main
 $(document).ready(async function() {
 	
+	
+	/**
+	 * Update all URL redirect page in navbar
+	 * Add ?lan=_ after URL
+	 * This function will be called when page reload
+	 */
 	setURLNavbar();
 	
+	/**
+	 * When ever you click on the Language button the the URL will be add the queery string like this innto URL
+	 * ?lan=en or ?lan=vi
+	 * it depend on what language yuo choose
+	 */
 	updateURLforNavbar();
+	
+	/**
+	 * Show what page is active
+	 */
+	handleNavbarActive();
 		
 })

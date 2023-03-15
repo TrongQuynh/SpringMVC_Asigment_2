@@ -12,8 +12,8 @@
 </head>
 <body>
 	
-	<!-- Navber -->
-	<%@include file="Navbar.html"%>
+	<!-- Navbar -->
+	<%@include file="Navbar.jsp"%>
 
 
 	<h2 class="txt_red">Home Page</h2>
@@ -30,6 +30,9 @@
 	
 	<!-- Variable Config -->
 	<script type="text/javascript" src="<c:url value="/resources/js/config.js"/>"></script>
+	
+	<!-- Authentication -->
+	<script type="text/javascript" src="<c:url value="/resources/js/Authetication.js"/>"></script>
 	
 	<!-- Navbar Reirect Page -->
 	<script type="text/javascript" src="<c:url value="/resources/js/navbarRedirectPage.js"/>"></script>
